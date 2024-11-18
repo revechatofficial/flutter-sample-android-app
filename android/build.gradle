@@ -1,0 +1,30 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.google.com/' }
+
+        maven {
+            url "https://maven.iptelephony.revesoft.com/artifactory/libs-release-local/"
+        }
+
+        maven {
+            url "https://jfrog-artifact.revechat.com/artifactory/artifactory/"
+        }
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
